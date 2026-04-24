@@ -19,10 +19,10 @@ const msgPath = process.env.SCROLL_MSG;
 //Local initialization
 const setLocalData = async () => {
   try {
-    const pic = path.join(__dirname, "../local/", picPath);
+    const pic = path.join(__dirname, "./../local/", picPath);
     let markup = "";
     if (msgPath) {
-      const text = fs.readFileSync(path.join(__dirname, "../local/", msgPath), {
+      const text = fs.readFileSync(path.join(__dirname, "./../local/", msgPath), {
         encoding: "utf-8",
       });
       markup = generateMarkupLocal(text);

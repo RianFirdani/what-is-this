@@ -1,6 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 
+const name =  "Efrilla Gianti"
+const nickname =  "Sayangggg"
+const hbdMsg =  "May good things always on your side"
+
 const genIndex = function (markup) {
   let html = fs.readFileSync(path.join(__dirname, "../src/template.html"), {
     encoding: "utf-8",
@@ -18,13 +22,13 @@ const genIndex = function (markup) {
 
   html = html
     .replace("{{^READ_TIME}}", readVar)
-    .replace("{{^SCROLL_MSG}}", markup)
+    .replace("{{^SCROLL_MSG}}", markup )
     .replace(
       "{{^HBD_MSG}}",
-      process.env.HBD_MSG || "Wish you a very Happy Birthday"
+      hbdMsg
     )
-    .replace("{{^NAME}}", process.env.NAME)
-    .replace("{{^NICKNAME}}", process.env.NICKNAME || process.env.NAME);
+    .replace("{{^NAME}}", name)
+    .replace("{{^NICKNAME}}", nickname);
 
   fs.writeFileSync(path.join(__dirname, "../src/index.html"), html, {
     encoding: "utf-8",
