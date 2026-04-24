@@ -12,8 +12,8 @@ require("dotenv").config();
 
 
 
-const picPath = process.env.PIC;
-const msgPath = process.env.SCROLL_MSG;
+const picPath = process.env.PIC || "image-1.jpeg";
+const msgPath = process.env.SCROLL_MSG || "sample-scroll.txt";
 
 //Local initialization
 const setLocalData = async () => {
