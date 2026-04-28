@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday 🎂</title>
+
+<style>
+/* 🎂 BACKGROUND UTAMA */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+/* BACKGROUND */
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  overflow-x: hidden;
+}
+
+/* ================= CONTAINER ================= */
+.slider {
+  width: 25vw;
+  height: 65vh;
+  max-width: 420px;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  background: #000;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .slider {
+    width: 85vw;
+    height: 55vh;
+  }
+}
+
+/* ================= SLIDES ================= */
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.8s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.slide img,
+.slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* VIDEO STYLE */
+.video-slide video {
+  border-radius: 20px;
+}
+
+/* ================= CONFETTI BACKGROUND ================= */
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-image: radial-gradient(#fff 2px, transparent 2px);
+  background-size: 25px 25px;
+  opacity: 0.15;
+  animation: confettiMove 20s linear infinite;
+}
+
+@keyframes confettiMove {
+  from { transform: translateY(0); }
+  to { transform: translateY(-200px); }
+}
+
+/* ================= CANDLE SCREEN ================= */
+.candle-screen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #1a1a1a, #000);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  transition: opacity 1s;
+}
+
+/* TEXT */
+.wish-text {
+  color: white;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+/* ================= CAKE ================= */
+.cake {
+  width: 220px;
+  height: 110px;
+  background: pink;
+  border-radius: 15px;
+  position: relative;
+  box-shadow: inset 0 -8px rgba(0,0,0,0.1);
+}
+
+/* CANDLES */
+.candles {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.flame {
+  width: 12px;
+  height: 24px;
+  background: orange;
+  border-radius: 50%;
+  cursor: pointer;
+  animation: flicker 0.2s infinite alternate;
+  box-shadow: 0 0 10px orange;
+}
+
+/* FLAME ANIMATION */
+@keyframes flicker {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+/* MATI */
+.flame.off {
+  opacity: 0;
+  transform: scale(0);
+}
+
+/* ================= WOW EFFECT ================= */
+.slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.2);
+  pointer-events: none;
+}
+
+/* ================= SMOOTH FADE ================= */
+.fade-out {
+  opacity: 0;
+  transition: opacity 1s;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎂 CANDLE SCREEN -->
+<div class="candle-screen" id="candleScreen">
+  <p class="wish-text">make a wish dulu yaa... 😌✨</p>
+
+  <div class="candles">
+    <div class="flame"></div>
+    <div class="flame"></div>
+    <div class="flame"></div>
+    <div class="flame"></div>
+    <div class="flame"></div>
+  </div>
+
+  <div class="cake"></div>
+</div>
+
+
+<!-- 🎬 SLIDER -->
+<div class="slider">
+  <div class="slides">
+
+    <div class="slide">
+      <img src="./image-2.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-3.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-5.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-7.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-8.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-9.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-10.jpeg">
+    </div>
+    <div class="slide">
+      <img src="./image-12.jpeg">
+    </div>
+    
+    <div class="slide video-slide">
+      <video id="birthdayVideo" controls>
+        <source src="./vid.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video id="birthdayVideo" controls>
+        <source src="./vid-2.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="slide video-slide">
+      <video id="birthdayVideo" controls>
+        <source src="./vid-3.mp4" type="video/mp4">
+      </video>
+    </div>
+
+
+  </div>
+</div>
+
+<script>
+/* ================= CANDLE ================= */
+const flames = document.querySelectorAll(".flame");
+const screen = document.getElementById("candleScreen");
+const sound = document.getElementById("blowSound");
+
+let blown = 0;
+
+flames.forEach(f => {
+  f.addEventListener("click", () => {
+    if (!f.classList.contains("off")) {
+      f.classList.add("off");
+      sound.currentTime = 0;
+      sound.play();
+      blown++;
+
+      if (blown === flames.length) {
+        setTimeout(() => screen.style.opacity = "0", 800);
+        setTimeout(() => screen.style.display = "none", 1600);
+      }
+    }
+  });
+});
+
+/* 🎤 MIC BLOW */
+navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+  const audioContext = new AudioContext();
+  const mic = audioContext.createMediaStreamSource(stream);
+  const analyser = audioContext.createAnalyser();
+  mic.connect(analyser);
+
+  const data = new Uint8Array(analyser.frequencyBinCount);
+
+  function detect() {
+    analyser.getByteFrequencyData(data);
+    let volume = data.reduce((a,b)=>a+b)/data.length;
+
+    if (volume > 60) {
+      flames.forEach(f => f.classList.add("off"));
+      blown = flames.length;
+
+      setTimeout(()=>screen.style.display="none",1000);
+    }
+
+    requestAnimationFrame(detect);
+  }
+
+  detect();
+});
+
+/* ================= SLIDER ================= */
+const slides = document.querySelectorAll(".slide");
+const slider = document.querySelector(".slides");
+const video = document.getElementById("birthdayVideo");
+
+let index = 0;
+let interval;
+
+function showSlide(i){
+  slider.style.transform = `translateX(-${i*100}%)`;
+}
+
+function nextSlide(){
+  index++;
+  if(index >= slides.length) index = 0;
+
+  showSlide(index);
+
+  if(slides[index].classList.contains("video-slide")){
+    clearInterval(interval);
+    video.play();
+  }
+}
+
+function startSlide(){
+  interval = setInterval(()=>{
+    if(slides[index].classList.contains("video-slide")){
+      clearInterval(interval);
+      video.play();
+      return;
+    }
+    nextSlide();
+  },3000);
+}
+
+video.addEventListener("ended", ()=>{
+  nextSlide();
+  startSlide();
+});
+
+startSlide();
+</script>
+
+</body>
+</html>

@@ -136,8 +136,8 @@ export const animate = function () {
       const readTime =
         parseInt(
           getComputedStyle(document.documentElement).getPropertyValue(
-            "--readTime"
-          )
+            "--readTime",
+          ),
         ) + 5;
 
       frames[1].style.display = "flex";
@@ -158,12 +158,27 @@ export const animate = function () {
         msgWindow.style.opacity = "0";
       }, readTime * 1000);
 
-      setTimeout(() => {
-        frames[1].style.display = "none";
-        frames[0].style.display = "flex";
-        frames[0].classList.add("appear");
-        frames[0].style.opacity = "1";
-      }, (readTime + 3) * 1000);
+      setTimeout(
+        () => {
+          frames[1].style.display = "none";
+          frames[0].style.display = "flex";
+          frames[0].classList.add("appear");
+          frames[0].style.opacity = "1";
+        },
+        (readTime + 3) * 1000,
+      );
+
+      setTimeout(
+        () => {
+          document.body.style.transition = "opacity 1s";
+          document.body.style.opacity = "0";
+
+          setTimeout(() => {
+            window.location.href = "wish.html";
+          }, 1000);
+        },
+        (readTime + 6) * 1000,
+      );
     }
   });
 };

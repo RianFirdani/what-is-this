@@ -9,8 +9,8 @@
   },
   "browserslist": "last 10 versions, not dead",
   "scripts": {
-  "dev": "parcel src/index.html",
-  "build": "parcel build src/index.html --dist-dir dist",
+  "dev": "parcel src/index.html src/wish.html",
+  "build": "parcel build src/index.html src/wish.html --dist-dir dist",
   "watch": "parcel src/index.html"
 },
   "repository": {
